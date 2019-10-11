@@ -116,29 +116,31 @@ export default class GooglePlacesAutocomplete extends Component {
     return [...res, ...results];
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this._request = this.props.debounce
-    ? debounce(this._request, this.props.debounce)
-    : this._request;
+      ? debounce(this._request, this.props.debounce)
+      : this._request;
+  }
+
+  componentDidMount() {
     // This will load the default value's search results after the view has
     // been rendered
     this._handleChangeText(this.state.text);
     this._isMounted = true;
   }
 
-  componentDidUpdate() {
-    const { text } = this.props;
+  componentWillReceiveProps(nextProps) {
     let listViewDisplayed = true;
 
-    if (this.props.listViewDisplayed !== 'auto') {
-      listViewDisplayed = this.props.listViewDisplayed;
+    if (nextProps.listViewDisplayed !== 'auto') {
+      listViewDisplayed = nextProps.listViewDisplayed;
     }
 
-    if (typeof (text) !== "undefined" && this.state.text !== text) {
+    if (typeof (nextProps.text) !== "undefined" && this.state.text !== nextProps.text) {
       this.setState({
           listViewDisplayed: listViewDisplayed
         },
-        this._handleChangeText(text));
+        this._handleChangeText(nextProps.text));
     } else {
       this.setState({
         listViewDisplayed: listViewDisplayed
