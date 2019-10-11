@@ -588,7 +588,7 @@ export default class GooglePlacesAutocomplete extends Component {
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}>
         <TouchableHighlight
-          style={{ width: WINDOW.width }}
+          style={{ width: '100%' }}
           onPress={() => this._onPress(rowData)}
           underlayColor={this.props.listUnderlayColor || "#c8c7cc"}
         >
